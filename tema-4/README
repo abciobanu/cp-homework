@@ -1,0 +1,85 @@
+NUME: Ciobanu Andrei-Bogdan
+GRUPA: 312CB
+
+Tema 4 - Pregătire examen
+
+Task 1
+    Matricea este alocată dinamic în funcție de valoarea aflată la adresa către
+care punctează pointerul primit de funcție ca (void *). Aceasta este populată
+cu valorile ij deja rotite în sensul acelor de ceasornic. Formarea șirului de
+caractere pentru output se face cu sprintf().
+
+Task 2
+    Se face o copie a șirului de caractere primit de funcție, căci strtok()
+alterează șirul dat ca parametru. Se extrage fiecare număr din șir cu ajutorul
+funcției anterior menționate și se adună la variabila sum. Suma elementelor sub
+formă de șir de caractere se obține cu sprintf().
+
+Task 3
+    Prelucrarea vectorului primit de funcție se realizează conform enunțului.
+Conversia din număr întreg în șir de caractere și concatenarea se obțin ca în
+prima cerință, cu sprintf().
+    Dacă lungimea vectorului rămas este număr par, în șir se plasează întâi
+elementul de pe poziția i + 1 (2k + 2), apoi cel de pe poziția i (2k + 1). Dacă
+lungimea vectorului este număr impar, vectorul se parcurge în sens invers, iar
+elementele plasează în această ordine în output_str.
+
+Task 4
+    Se alocă structurile conform enunțului. În cadrul funcției allocPlayer() se
+inițializează și câmpul indexOfLocation, fiind nevoie de acesta în următoarele
+task-uri.
+
+Task 5
+    Se alocă spațiu pentru structura de tip Game ce urmează a fi construită pe
+baza datelor din fișierul de intrare primit de funcție. Câmpurilor name,
+killRange și numberOfCrewmates li se atribuie valorile prezente în fișier, apoi
+se alocă vectorul crewmates[]. Se citește fiecare coleg de echipaj cu funcția
+ReadPlayer(), apoi se citește și impostorul cu aceeași funcție.
+    În cadrul ReadPlayer(), se alocă spațiu pentru structura de tip Player care
+urmează a fi returnată. Asemănător funcției ReadGame(), câmpurilor name, color,
+hat, numberOfLocations li se atribuie valorile din fișier, apoi se alocă câmpul
+locations[]. Se citește fiecare pereche de coordonate din fișier, se filtrează
+cu strtok() și se completează vectorul. În continuare, se citește rolul
+jucătorului din fișier și, în funcție de șirul de caractere citit, se atribuie
+valori câmpurilor playerRole și ability.
+
+Task 6
+    Se afișează structurile în fișierul de output, în formatul specificat, cu
+ajutorul funcției fprintf(). Pentru afișarea structurilor Player, se apelează
+WritePlayer(). În cadrul acesteia, pentru a obține rolul jucătorului ca șir de
+caractere, se folosește funcția fromEnumtoString().
+
+Task 7
+    Se parcurge fiecare coleg de echipaj din câmpul vector crewmates[] al
+structurii de tip Game primită de funcție. Distanța dintre impostor și coleg de
+echipaj se obține cu ajutorul funcției get_distance(), care returnează distanța
+dintre cele două puncte ca distanță Manhattan. De fiecare dată când se găsește
+un coleg de echipaj mai apropiat de impostor, aflat la o distanță cel mult
+egală cu killRange, se actualizează min_distance și se ține cont de crewmate-ul
+cel mai apropiat prin pointerul next_victim.
+    Dacă, în urma parcurgerii vectorului crewmates[], next_victim este NULL,
+înseamnă că nu s-a găsit o următoare victimă pentru impostor și se formează
+mesajul corespunzător. În caz contrar, câmpul alive al colegului de echipaj
+respectiv devine 0 și se formează mesajul conform cerinței, în variabila șir de
+caractere output_str.
+
+Task 8
+    Pentru fiecare coleg de echipaj, se verifică dacă alive este 1. Dacă alive
+este 1, jucătorul este în viață. În acest caz, se actualizează locația acestuia
+prin actualizarea indexOfLocation, ținându-se cont de faptul că mișcarea este
+circulară. Se afișează coordonatele pentru noua locație în fișierul de output,
+apoi se efectuează task-ul crewmate-ului respectiv prin apelarea abilității.
+Șirul de caractere returnat este, de asemenea, scris în fișierul de output.
+Dacă valoarea câmpului alive este 0, jucătorul este mort și se scrie în fișier
+mesajul conform cerinței.
+    După ce se afișează datele pentru toți colegii de echipaj, se repetă pașii
+de mai sus pentru impostor.
+
+Task 9
+    Înainte de a elibera memoria alocată întregii structuri de tip Player, este
+nevoie ca memoria alocată dinamic pentru câmpurile structurii să fie eliberată.
+    Aceiași pași sunt necesari și pentru structura de tip Game, cu mențiunea că
+înainte de a elibera câmpul crewmates[], trebuie eliberate toate structurile de
+tip Player către care punctează pointerii din acest vector.
+    Toate celelalte variabile alocate dinamic în cadrul cerințelor anterioare
+sunt eliberate manual odată ce nu mai este nevoie de ele.

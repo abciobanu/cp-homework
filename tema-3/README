@@ -1,0 +1,46 @@
+NUME: Ciobanu Andrei-Bogdan
+GRUPA: 312CB
+
+Tema 3 - The Emperor's New Sudoku
+
+Alegere bibliotecă externă
+    Am ales biblioteca externă cJSON, deoarece aceasta a fost prima recomandată
+pe ocw, iar README-ul mi s-a părut mai bine scris decât cel de la JSMN.
+
+Task 1
+    Folosind biblioteca cJSON, am extras fiecare obiect JSON din fișierul JSON
+dat in linia de comandă: „file_header”, „info_header” și „bitmap”. Pentru
+stocarea informațiilor din obiectul JSON „file_header”, s-a folosit structura
+bmp_fileheader din bmp_header.h. Pentru stocarea informațiilor din obiectul
+„info_header”, s-a folosit structura bmp_infoheader din același header. Lista
+de valori pentru culorile pixelilor, ce reprezintă item-ul obiectului „bitmap”,
+este salvată într-un vector de structuri Color numit pixel_array. Fiecare
+element de tip structură Color are drept câmpuri trei variabile ce ocupă câte
+un octet fiecare: blue, green și red.
+    Cele trei structuri, bmp_fileheader, bmp_infoheader și pixel_array, sunt
+organizate într-o structură numită bmp.
+    Pentru a forma numele fișierului de output în formatul cerut, se folosește
+funcția get_output_filename(), care depinde de get_file_basename(), funcție ce
+returnează numele unui fișier fără extensie, dată fiind calea. Scrierea în
+fișier se face în mod binar.
+
+Task 2
+    Rezolvarea cerinței 2 constă în oglindirea numerelor de pe grila de sudoku.
+Aceasta se realizează cu ajutorul funcției mirror_digits(), care apelează la
+rândul ei reverse_colors() pentru a inversa ”len” pixeli de la o poziție dată,
+start_pos. Inversarea se realizează de la stânga la dreapta, de sus în jos.
+    Fișierul de output se obține ca la task 1.
+
+Task 3
+    Acest task se bazează pe funcția check_grid(). Recunoașterea numerelor de
+pe grilă se obține cu ajutorul identify_digit(). Această funcție este utilizată
+de get_grid_from_bitmap(), care returnează o matrice cu numerele identificate.
+Dacă pixelii reprezintă o formă diferită de numerele de la 1 la 9, în matrice
+se trece -1.
+    Verificarea corectitudinii completării pe orizontală este realizată de
+horizontal_check(), pe verticală de vertical_check(), iar pe secțiuni 3x3 de
+block_check().
+    Scrierea într-un fișier JSON se face prin write_to_json_file(). Crearea
+structurii fișierului este facilitată de biblioteca externă cJSON. Numele
+fișierului de output se definește precum în cerințele anterioare, cu ajutorul
+funcției get_output_filename(). Scrierea în fișier se face în mod text.
